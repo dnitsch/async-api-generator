@@ -5,13 +5,13 @@ type TokenType string
 const (
 	ILLEGAL TokenType = "ILLEGAL"
 	EOF     TokenType = "EOF"
-	
+
 	SPACE           TokenType = "SPACE"           // ' '
 	TAB             TokenType = "TAB"             // '\t'
 	NEW_LINE        TokenType = "NEW_LINE"        // '\n'
 	CARRIAGE_RETURN TokenType = "CARRIAGE_RETURN" // '\r'
 	CONTROL         TokenType = "CONTROL"
-	
+
 	// Identifiers + literals
 	TEXT            TokenType = "TEXT"            //
 	CONTENT_DOC_GEN TokenType = "CONTENT_DOC_GEN" //

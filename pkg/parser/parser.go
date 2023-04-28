@@ -20,8 +20,6 @@ const (
 	INDEX       // array[index]
 )
 
-var precedences = map[token.TokenType]int{}
-
 type Parser struct {
 	l      *lexer.Lexer
 	errors []string
@@ -102,6 +100,8 @@ func (p *Parser) parseStatement() ast.Statement {
 
 func (p *Parser) parseBeginGenDocStatement() *ast.GenDocStatement {
 	stmt := &ast.GenDocStatement{Token: p.curToken}
+	// do some parsing here perhaps of the name and file name/location etc...
+	stmt.Name = &ast.EnclosedIdentifier{Token: token.Token{Type: token.BEGIN_DOC_GEN, Literal: "// gendoc", MetaTags: p.curToken.MetaTags}, Value: "// gendoc"} //p.curToken.MetaTags}
 	// move past gendoc token
 	p.nextToken()
 
@@ -115,8 +115,8 @@ func (p *Parser) parseBeginGenDocStatement() *ast.GenDocStatement {
 		}
 		p.nextToken()
 	}
-	
-	stmt.Value = &ast.EnclosedIdentifier{token.Token{token.CONTENT_DOC_GEN, genDocValue, stmt.Token.MetaTags}, genDocValue}
+
+	stmt.Value = &ast.EnclosedIdentifier{Token: token.Token{Type: token.CONTENT_DOC_GEN, Literal: genDocValue, MetaTags: stmt.Token.MetaTags}, Value: genDocValue}
 	// skip end doc
 	p.nextToken()
 	return stmt
@@ -129,31 +129,14 @@ func (p *Parser) parseIgnoreStatement() *ast.IgnoreStatement {
 	for !p.curTokenIs(token.EOF) {
 		ignoreValue += p.curToken.Literal
 		if p.peekTokenIs(token.BEGIN_DOC_GEN) {
-			p.nextToken()
 			break
 		}
 		p.nextToken()
 	}
-	stmt.Value = &ast.UnusedIdentifier{token.Token{Type: token.NEW_LINE, Literal: ignoreValue}, ignoreValue}
+	stmt.Value = &ast.UnusedIdentifier{Token: token.Token{Type: token.NEW_LINE, Literal: ignoreValue}, Value: ignoreValue}
 	return stmt
 }
 
 func (p *Parser) parseExpression(precedence int) ast.Expression {
 	return &ast.EnclosedIdentifier{}
-}
-
-func (p *Parser) peekPrecedence() int {
-	if p, ok := precedences[p.peekToken.Type]; ok {
-		return p
-	}
-
-	return LOWEST
-}
-
-func (p *Parser) curPrecedence() int {
-	if p, ok := precedences[p.curToken.Type]; ok {
-		return p
-	}
-
-	return LOWEST
 }

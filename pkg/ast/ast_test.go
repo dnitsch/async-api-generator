@@ -22,14 +22,14 @@ func TestString(t *testing.T) {
 				},
 			},
 			&ast.GenDocStatement{
-				Token: token.Token{Type: token.BEGIN_DOC_GEN, Literal: "// gendoc"},
+				Token: token.Token{Type: token.BEGIN_DOC_GEN, Literal: "// gendoc", MetaTags: "type=message,subtype=example,consumer=[],producer=[]"},
 				Name: &ast.EnclosedIdentifier{
-					Token: token.Token{Type: token.TEXT, Literal: ""},
+					Token: token.Token{Type: token.CONTENT_DOC_GEN, Literal: "content_gendoc"},
 					Value: "",
 				},
 				Value: &ast.EnclosedIdentifier{
-					Token: token.Token{Type: token.NEW_LINE, Literal: "gendoc"},
-					Value: " type=message,subtype=example,consumer=[],producer=[]",
+					Token: token.Token{Type: token.TEXT, Literal: "text"},
+					Value: "", //
 				},
 			},
 		},

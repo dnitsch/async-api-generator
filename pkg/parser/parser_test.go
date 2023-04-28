@@ -20,7 +20,7 @@ stuff {
 	here string
 }
 // !gendoc
-`, "gendoc", `stuff {
+`, "// gendoc", `stuff {
 	here string
 }`},
 		// "bool":   {"let y = true;", "y", true},
@@ -46,25 +46,25 @@ stuff {
 }
 
 func testGenDocStatement(t *testing.T, s ast.Statement, name string) bool {
-	if s.TokenLiteral() != "gendoc" {
-		t.Errorf("got=%q, wanted s.TokenLiteral = 'gendoc'.", s.TokenLiteral())
+	if s.TokenLiteral() != "// gendoc" {
+		t.Errorf("got=%q, wanted s.TokenLiteral = '// gendoc'.", s.TokenLiteral())
 		return false
 	}
 
-	letStmt, ok := s.(*ast.GenDocStatement)
+	genStmt, ok := s.(*ast.GenDocStatement)
 	if !ok {
 		t.Errorf("s not *ast.GenDocStatement. got=%T", s)
 		return false
 	}
 
-	if letStmt.Name.Value != name {
-		t.Errorf("letStmt.Name.Value not '%s'. got=%s", name, letStmt.Name.Value)
+	if genStmt.Name.Value != name {
+		t.Errorf("letStmt.Name.Value not '%s'. got=%s", name, genStmt.Name.Value)
 		return false
 	}
 
-	if letStmt.Name.TokenLiteral() != name {
+	if genStmt.Name.TokenLiteral() != name {
 		t.Errorf("letStmt.Name.TokenLiteral() not '%s'. got=%s",
-			name, letStmt.Name.TokenLiteral())
+			name, genStmt.Name.TokenLiteral())
 		return false
 	}
 

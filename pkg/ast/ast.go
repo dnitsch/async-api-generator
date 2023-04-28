@@ -2,6 +2,7 @@ package ast
 
 import (
 	"bytes"
+	"fmt"
 
 	"github.com/dnitsch/async-api-generator/pkg/token"
 )
@@ -64,7 +65,7 @@ func (ls *GenDocStatement) String() string {
 	var out bytes.Buffer
 
 	out.WriteString(ls.TokenLiteral())
-	out.WriteString(ls.Name.String())
+	out.WriteString(fmt.Sprintf("%s %s", ls.Name.String(), ls.Token.MetaTags))
 
 	if ls.Value != nil {
 		out.WriteString(ls.Value.String())
