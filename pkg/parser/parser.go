@@ -1,0 +1,159 @@
+package parser
+
+import (
+	"fmt"
+
+	"github.com/dnitsch/async-api-generator/pkg/ast"
+	"github.com/dnitsch/async-api-generator/pkg/lexer"
+	"github.com/dnitsch/async-api-generator/pkg/token"
+)
+
+const (
+	_ int = iota
+	LOWEST
+	EQUALS      // ==
+	LESSGREATER // > or <
+	SUM         // +
+	PRODUCT     // *
+	PREFIX      // -X or !X
+	CALL        // myFunction(X)
+	INDEX       // array[index]
+)
+
+var precedences = map[token.TokenType]int{}
+
+type Parser struct {
+	l      *lexer.Lexer
+	errors []string
+
+	curToken  token.Token
+	peekToken token.Token
+}
+
+func New(l *lexer.Lexer) *Parser {
+	p := &Parser{
+		l:      l,
+		errors: []string{},
+	}
+
+	// Read two tokens, so curToken and peekToken are both set
+	p.nextToken()
+	p.nextToken()
+
+	return p
+}
+
+func (p *Parser) nextToken() {
+	p.curToken = p.peekToken
+	p.peekToken = p.l.NextToken()
+}
+
+func (p *Parser) curTokenIs(t token.TokenType) bool {
+	return p.curToken.Type == t
+}
+
+func (p *Parser) peekTokenIs(t token.TokenType) bool {
+	return p.peekToken.Type == t
+}
+
+func (p *Parser) expectPeek(t token.TokenType) bool {
+	if p.peekTokenIs(t) {
+		p.nextToken()
+		return true
+	} else {
+		p.peekError(t)
+		return false
+	}
+}
+
+func (p *Parser) Errors() []string {
+	return p.errors
+}
+
+func (p *Parser) peekError(t token.TokenType) {
+	msg := fmt.Sprintf("expected next token to be %s, got %s instead",
+		t, p.peekToken.Type)
+	p.errors = append(p.errors, msg)
+}
+
+func (p *Parser) Parse() *ast.GenDoc {
+	program := &ast.GenDoc{}
+	program.Statements = []ast.Statement{}
+
+	for !p.curTokenIs(token.EOF) {
+		stmt := p.parseStatement()
+		if stmt != nil {
+			program.Statements = append(program.Statements, stmt)
+		}
+		p.nextToken()
+	}
+
+	return program
+}
+
+func (p *Parser) parseStatement() ast.Statement {
+	switch p.curToken.Type {
+	case token.BEGIN_DOC_GEN:
+		return p.parseBeginGenDocStatement()
+	default:
+		return p.parseIgnoreStatement()
+	}
+}
+
+func (p *Parser) parseBeginGenDocStatement() *ast.GenDocStatement {
+	stmt := &ast.GenDocStatement{Token: p.curToken}
+	// move past gendoc token
+	p.nextToken()
+
+	genDocValue := ""
+	// should exit the loop if no end doc tag found
+	for {
+		genDocValue += p.curToken.Literal
+		if p.peekTokenIs(token.END_DOC_GEN) {
+			p.nextToken()
+			break
+		}
+		p.nextToken()
+	}
+	
+	stmt.Value = &ast.EnclosedIdentifier{token.Token{token.CONTENT_DOC_GEN, genDocValue, stmt.Token.MetaTags}, genDocValue}
+	// skip end doc
+	p.nextToken()
+	return stmt
+}
+
+func (p *Parser) parseIgnoreStatement() *ast.IgnoreStatement {
+	stmt := &ast.IgnoreStatement{Token: p.curToken}
+
+	ignoreValue := ""
+	for !p.curTokenIs(token.EOF) {
+		ignoreValue += p.curToken.Literal
+		if p.peekTokenIs(token.BEGIN_DOC_GEN) {
+			p.nextToken()
+			break
+		}
+		p.nextToken()
+	}
+	stmt.Value = &ast.UnusedIdentifier{token.Token{Type: token.NEW_LINE, Literal: ignoreValue}, ignoreValue}
+	return stmt
+}
+
+func (p *Parser) parseExpression(precedence int) ast.Expression {
+	return &ast.EnclosedIdentifier{}
+}
+
+func (p *Parser) peekPrecedence() int {
+	if p, ok := precedences[p.peekToken.Type]; ok {
+		return p
+	}
+
+	return LOWEST
+}
+
+func (p *Parser) curPrecedence() int {
+	if p, ok := precedences[p.curToken.Type]; ok {
+		return p
+	}
+
+	return LOWEST
+}
