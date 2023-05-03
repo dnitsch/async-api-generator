@@ -1,8 +1,6 @@
 package lexer_test
 
 import (
-	"fmt"
-	"strings"
 	"testing"
 
 	"github.com/dnitsch/async-api-generator/pkg/lexer"
@@ -11,11 +9,11 @@ import (
 
 func Test(t *testing.T) {
 	input := `foo stuyfsdfsf
-// gendoc type=message,subtype=example,consumer=[],producer=[]
+//+gendoc type=message,subtype=example,consumer=[],producer=[]
 class {
 	stuff string {get; set;}
 }
-// !gendoc
+//-gendoc
 
 /// <summary> ignorethis
 # another comment
@@ -28,7 +26,8 @@ class {
 		{token.SPACE, " "},
 		{token.TEXT, "stuyfsdfsf"},
 		{token.NEW_LINE, "\n"},
-		{token.BEGIN_DOC_GEN, "// gendoc"},
+		{token.BEGIN_DOC_GEN, "//+gendoc"},
+		{token.NEW_LINE, "\n"},
 		{token.TEXT, "class"},
 		{token.SPACE, " "},
 		{token.TEXT, "{"},
@@ -44,7 +43,7 @@ class {
 		{token.NEW_LINE, "\n"},
 		{token.TEXT, "}"},
 		{token.NEW_LINE, "\n"},
-		{token.END_DOC_GEN, "// !gendoc"},
+		{token.END_DOC_GEN, "//-gendoc"},
 		{token.NEW_LINE, "\n"},
 		{token.NEW_LINE, "\n"},
 		{token.TEXT, "//"},
@@ -66,7 +65,6 @@ class {
 	for i, tt := range ttests {
 
 		tok := l.NextToken()
-		fmt.Println(tok)
 		if tok.Type != tt.expectedType {
 			t.Fatalf("tests[%d] - tokentype wrong. got=%q, expected=%q",
 				i, tok.Type, tt.expectedType)
@@ -76,9 +74,8 @@ class {
 			t.Fatalf("tests[%d] - literal wrong. got=%q, expected=%q",
 				i, tok.Literal, tt.expectedLiteral)
 		}
-		if tok.Type == token.BEGIN_DOC_GEN && len(tok.MetaTags) < 1 && strings.EqualFold(tok.MetaTags, " type=message,subtype=example,consumer=[],producer=[]\n") {
-			// if tok.MetaTags
-			t.Errorf("gendoc token should include ")
+		if tok.Type == token.BEGIN_DOC_GEN && len(tok.MetaAnnotation) < 1 && tok.MetaAnnotation != "type=message,subtype=example,consumer=[],producer=[]" {
+			t.Errorf("gendoc meta annotation should include %s", "type=message,subtype=example,consumer=[],producer=[]")
 		}
 	}
 }

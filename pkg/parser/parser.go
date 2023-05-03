@@ -3,7 +3,6 @@ package parser
 import (
 	"fmt"
 
-	"github.com/dnitsch/async-api-generator/pkg/ast"
 	"github.com/dnitsch/async-api-generator/pkg/lexer"
 	"github.com/dnitsch/async-api-generator/pkg/token"
 )
@@ -74,9 +73,9 @@ func (p *Parser) peekError(t token.TokenType) {
 	p.errors = append(p.errors, msg)
 }
 
-func (p *Parser) Parse() *ast.GenDoc {
-	program := &ast.GenDoc{}
-	program.Statements = []ast.Statement{}
+func (p *Parser) Parse() *GenDoc {
+	program := &GenDoc{}
+	program.Statements = []Statement{}
 
 	for !p.curTokenIs(token.EOF) {
 		stmt := p.parseStatement()
@@ -89,7 +88,7 @@ func (p *Parser) Parse() *ast.GenDoc {
 	return program
 }
 
-func (p *Parser) parseStatement() ast.Statement {
+func (p *Parser) parseStatement() Statement {
 	switch p.curToken.Type {
 	case token.BEGIN_DOC_GEN:
 		return p.parseBeginGenDocStatement()
@@ -98,10 +97,10 @@ func (p *Parser) parseStatement() ast.Statement {
 	}
 }
 
-func (p *Parser) parseBeginGenDocStatement() *ast.GenDocStatement {
-	stmt := &ast.GenDocStatement{Token: p.curToken}
+func (p *Parser) parseBeginGenDocStatement() *GenDocStatement {
+	stmt := &GenDocStatement{Token: p.curToken}
 	// do some parsing here perhaps of the name and file name/location etc...
-	stmt.Name = &ast.EnclosedIdentifier{Token: token.Token{Type: token.BEGIN_DOC_GEN, Literal: "// gendoc", MetaTags: p.curToken.MetaTags}, Value: "// gendoc"} //p.curToken.MetaTags}
+	stmt.Name = &EnclosedIdentifier{Token: token.Token{Type: token.BEGIN_DOC_GEN, Literal: "//+gendoc", MetaAnnotation: p.curToken.MetaAnnotation}, Value: "//+gendoc"} //p.curToken.MetaTags}
 	// move past gendoc token
 	p.nextToken()
 
@@ -116,14 +115,14 @@ func (p *Parser) parseBeginGenDocStatement() *ast.GenDocStatement {
 		p.nextToken()
 	}
 
-	stmt.Value = &ast.EnclosedIdentifier{Token: token.Token{Type: token.CONTENT_DOC_GEN, Literal: genDocValue, MetaTags: stmt.Token.MetaTags}, Value: genDocValue}
+	stmt.Value = &EnclosedIdentifier{Token: token.Token{Type: token.CONTENT_DOC_GEN, Literal: genDocValue, MetaAnnotation: stmt.Token.MetaAnnotation}, Value: genDocValue}
 	// skip end doc
 	p.nextToken()
 	return stmt
 }
 
-func (p *Parser) parseIgnoreStatement() *ast.IgnoreStatement {
-	stmt := &ast.IgnoreStatement{Token: p.curToken}
+func (p *Parser) parseIgnoreStatement() *IgnoreStatement {
+	stmt := &IgnoreStatement{Token: p.curToken}
 
 	ignoreValue := ""
 	for !p.curTokenIs(token.EOF) {
@@ -133,10 +132,10 @@ func (p *Parser) parseIgnoreStatement() *ast.IgnoreStatement {
 		}
 		p.nextToken()
 	}
-	stmt.Value = &ast.UnusedIdentifier{Token: token.Token{Type: token.NEW_LINE, Literal: ignoreValue}, Value: ignoreValue}
+	stmt.Value = &UnusedIdentifier{Token: token.Token{Type: token.NEW_LINE, Literal: ignoreValue}, Value: ignoreValue}
 	return stmt
 }
 
-func (p *Parser) parseExpression(precedence int) ast.Expression {
-	return &ast.EnclosedIdentifier{}
+func (p *Parser) parseExpression(precedence int) Expression {
+	return &EnclosedIdentifier{}
 }

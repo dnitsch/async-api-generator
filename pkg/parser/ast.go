@@ -1,4 +1,4 @@
-package ast
+package parser
 
 import (
 	"bytes"
@@ -34,9 +34,8 @@ type GenDoc struct {
 func (p *GenDoc) TokenLiteral() string {
 	if len(p.Statements) > 0 {
 		return p.Statements[0].TokenLiteral()
-	} else {
-		return ""
 	}
+	return ""
 }
 
 func (p *GenDoc) String() string {
@@ -49,10 +48,18 @@ func (p *GenDoc) String() string {
 	return out.String()
 }
 
-/*
- * Statements will encapsulate expressions so they can be later evaluated
- */
+type ContentType string 
+
+const (
+
+)
+
+type GenDocMetaAnnotation struct {
+	Type ContentType
+}
+
 // GenDocStatement
+// Statements will encapsulate expressions so they can be later evaluated
 type GenDocStatement struct {
 	Token token.Token // token.BEGIN_GEN_DOC token
 	Name  *EnclosedIdentifier
@@ -65,7 +72,7 @@ func (ls *GenDocStatement) String() string {
 	var out bytes.Buffer
 
 	out.WriteString(ls.TokenLiteral())
-	out.WriteString(fmt.Sprintf("%s %s", ls.Name.String(), ls.Token.MetaTags))
+	out.WriteString(fmt.Sprintf("%s %s", ls.Name.String(), ls.Token.MetaAnnotation))
 
 	if ls.Value != nil {
 		out.WriteString(ls.Value.String())

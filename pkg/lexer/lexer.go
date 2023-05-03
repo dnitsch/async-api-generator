@@ -8,8 +8,8 @@ import (
 
 const (
 	// Literals
-	BEGIN_DOC string = " gendoc"
-	END_DOC   string = " !gendoc"
+	BEGIN_DOC string = "+gendoc"
+	END_DOC   string = "-gendoc"
 )
 
 // nonText characters captures all character sets that are _not_ assignable to TEXT
@@ -40,10 +40,10 @@ func (l *Lexer) NextToken() token.Token {
 			// if next rune is a `/` then we have to consume it from lexer
 			l.readChar()
 			if l.peekIsDocGenBegin() {
-				tok = l.readDocAnnotation(token.Token{Type: token.BEGIN_DOC_GEN, Literal: "// gendoc"})
+				tok = l.readDocAnnotation(token.Token{Type: token.BEGIN_DOC_GEN, Literal: "//+gendoc"})
 				// return l.readDocAnnotation(token.Token{Type: token.BEGIN_DOC_GEN, Literal: "// gendoc"})
 			} else if l.peekIsDocGenEnd() {
-				tok = token.Token{Type: token.END_DOC_GEN, Literal: "// !gendoc"}
+				tok = token.Token{Type: token.END_DOC_GEN, Literal: "//-gendoc"}
 			} else {
 				// it is not a doc gen marker assigning double slash as text
 				tok = token.Token{Type: token.TEXT, Literal: "//"}
@@ -105,11 +105,11 @@ func (l *Lexer) setTextSeparatorToken() token.Token {
 // readDocAnnotation reads the rest of the line identified by
 func (l *Lexer) readDocAnnotation(tok token.Token) token.Token {
 	metaTag := ""
-	for l.ch != '\n' {
+	for l.peekChar() != '\n' {
 		metaTag += string(l.peekChar())
 		l.readChar()
 	}
-	tok.MetaTags = strings.TrimSpace(metaTag)
+	tok.MetaAnnotation = strings.TrimSpace(metaTag)
 	return tok
 }
 
@@ -134,7 +134,7 @@ func (l *Lexer) peekIsDocGenBegin() bool {
 func (l *Lexer) peekIsDocGenEnd() bool {
 	count := 0
 	docGen := ""
-	for count < 8 {
+	for count < 7 {
 		count++
 		docGen += string(l.peekChar())
 		l.readChar()

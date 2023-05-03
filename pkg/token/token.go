@@ -29,9 +29,9 @@ const (
 
 // Token is the basic structure of the captured token
 type Token struct {
-	Type     TokenType
-	Literal  string
-	MetaTags string // additional info about the captured token
+	Type           TokenType
+	Literal        string
+	MetaAnnotation string // additional info about the captured token
 }
 
 var keywords = map[string]TokenType{
