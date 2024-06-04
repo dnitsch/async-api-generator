@@ -45,15 +45,15 @@ Follow instructions for:
 
 > when running locally against a target - run `dotnet publish` in the target project to ensure all the dependency DLLs are present in the same directory, else assemblyLoader will fail if types are referencing packages from other assemblies.
 
-Actual example against the `domain.Dft.Sorter6.Mapper` repo
+Actual example against the `domain.foo` repo
 
-First publish the `domain.Dft.Sorter6.Mapper.Models` project:
+First publish the `domain.foo.Models` project:
 
-`dotnet publish /your/git/path/to/domain.Dft.Sorter6.Mapper/src/domain.Dft.Sorter6.Mapper.Models/domain.Dft.Sorter6.Mapper.Models.csproj -c Release`
+`dotnet publish /your/git/path/to/domain.foo/src/domain.foo.Models/domain.foo.Models.csproj -c Release`
 
 Once done we can then generate the output.
 
-`schemagenerator -p /your/git/path/to/domain.Dft.Sorter6.Mapper/src/domain.Dft.Sorter6.Mapper.Models/bin/Release/net6.0/publish/domain.Dft.Sorter6.Mapper.Models.dll -f domain.Dft.Sorter6.Mapper.Models.WarehouseEvents.Version1 -d`
+`schemagenerator -p /your/git/path/to/domain.foo/src/domain.foo.Models/bin/Release/net6.0/publish/domain.foo.Models.dll -f domain.foo.Models.WarehouseEvents.Version1 -d`
 
 By default the output is generated in the current directory creating a folder `.autogened` which will include both the samples and schemas.
 

@@ -15,7 +15,7 @@
     "build:watch": "npm run build -- -w",
     "clean:tree": "git clean -idx"
   },
-  "author": "Dusan_Nitschneider@next.co.uk",
+  "author": "nitschneiderd@gmail.com",
   "license": "MIT",
   "dependencies": {
     "@asyncapi/parser": "3.0.5",

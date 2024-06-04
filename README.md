@@ -35,7 +35,7 @@ See [usage](./docs/usage.md) for more details.
 
 ## AsyncAPI standard
 
-[AsyncAPI at Next](./docs/asyncapi.md)
+[AsyncAPI](./docs/asyncapi.md)
 
 ## Local development
 

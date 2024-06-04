@@ -76,11 +76,6 @@ export interface EventCatalogMsgExamples {
 export const extractEventCatalogExamples = (
   rawDoc: string
 ): EventCatalogMsgExamples => {
-  // ###BEGIN_EVENTCATALOG_EXAMPLES###
-  // #->eyJuYW1lIjoiUGFja2luZ0FyZWFFdmVudC0wLWV4YW1wbGUiLCJzdW1tYXJ5Ijoie1wiZmlsZVwiOlwic29tZWV2ZW50cG9jby5jc1sxMy0zMV1cIixcInBhdGhcIjpcIi9Vc2Vycy9kdXNhbm5pdHNjaG5laWRlci9naXQvbmV4dC93YXJlaG91c2UtaW50ZWdyYXRpb24vV2hkcy5Ub29scy5Bc3luY0FQSUdlbmVyYXRvci9zcmMvZ28vYXN5bmMtYXBpLWdlbi1kb2MvdGVzdC93aGRzLnNhbXBsZS9zcmMvc29tZWV2ZW50cG9jby5jc1wifSIsInBheWxvYWQiOiJuYW1lc3BhY2UgV2hkcy5QYWNraW5nLlNlcnZpY2VzLlBhY2tBcmVhLkNvbnRyYWN0cy5FdmVudHM7XG5cbnB1YmxpYyBjbGFzcyBQYWNraW5nQXJlYUV2ZW50IDogV2hkc01lc3NhZ2VcdTAwM2NQYWNraW5nQXJlYUV2ZW50UGF5bG9hZFx1MDAzZVxue1xuICAgIHB1YmxpYyBQYWNraW5nQXJlYUV2ZW50KFBhY2tpbmdBcmVhRXZlbnRQYXlsb2FkIHBheWxvYWQpXG4gICAge1xuICAgICAgICBNZXNzYWdlVHlwZU5hbWUgPSBuYW1lb2YoUGFja2luZ0FyZWFFdmVudCk7XG4gICAgICAgIFNvdXJjZVN5c3RlbSA9IFBhY2tBcmVhU2VydmljZUNvbnN0YW50cy5OYW1lO1xuICAgICAgICBHdWlkID0gR3VpZC5OZXdHdWlkKCk7XG4gICAgICAgIENyZWF0aW9uRGF0ZSA9IERhdGVUaW1lLlV0Y05vdztcbiAgICAgICAgTnVtYmVyID0gMTtcbiAgICAgICAgTnVtYmVyT2YgPSAxO1xuICAgICAgICBPd25lciA9IHN0cmluZy5FbXB0eTtcbiAgICAgICAgU3RyZWFtID0gU3RyaW5nLkVtcHR5O1xuICAgICAgICBQYXlsb2FkID0gcGF5bG9hZDtcbiAgICB9XG59In0=
-  // ###END_EVENTCATALOG_EXAMPLES###
-  // The output will look like the below
-  // let output = {"name":"N6_BulkOrderConfiguration_v1-0-example","summary":"{\"file\":\"BulkOrderUpdatedEvent.cs[9-16]\",\"path\":\"/some/path/domain.Dft.Sorter6.Mapper/src/domain.Dft.Sorter6.Mapper.Models/WarehouseEvents/Version1/OrderUpdatedEvents/BulkOrderUpdatedEvent.cs\"}","payload":"namespace domain.Dft.Sorter6.Mapper.Models.WarehouseEvents.Version1.OrderUpdatedEvents\n{\n    public class BulkOrderUpdatedEvent : OrderUpdatedEvent\n    {\n    }\n}"}
 
   let resp = {} as EventCatalogMsgExamples;
 
