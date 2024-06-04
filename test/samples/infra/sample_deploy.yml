@@ -1,9 +1,0 @@
-some: yml
-#//+gendoc
-envs: 
-  dev: 
-    url: "dev.domain.com"
-  preprod:
-    url: "pre.domain.com"
-  prod: 
-    url: "prod.domain.com"

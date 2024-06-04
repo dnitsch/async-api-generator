@@ -1,51 +1,85 @@
 # async-api-generator
 
-This tool parses source code - of any type and looks for tags / annotations to extract. 
+This tool parses source code - of any type and looks for tags / annotations to extract expressions and assign them to GenDoc statements.
+
+The goal of this utility is twofold:
+
+- produce an interim state from a single service/application and convert to [AsyncAPI](https://www.asyncapi.com) spec
+
+- produce a holistic view across all application/service emitted AsyncAPI documents to provide a wider view
+
+The driver is to remove manual creation/maintanence of AsyncAPI Specs and have them be generated from code - which would also ~force~ encourage documentation of code to live with code and hence making it easier to modify relevant code and accompanying documentation.
 
 _Limitations by design:_
 
-- requires a closing tag as the source can be of any type and formatting is not guaranteed. Essentially using things like `{` or cursor column indicator, wouldn't be reliable enough
+- requires a closing tag as the source can be of any type and formatting is not guaranteed. Essentially using things like `{` or cursor column indicator, wouldn't be reliable enough as not everyone may have uniform formatting.
+
+_High level flow_
+![hl-flow diagram](./docs/hl-flow.png)
+
+Living documentation [link](https://lucid.app/lucidspark/4d09749b-ad86-456b-a5ad-2f9e70a2b546/edit?viewport_loc=-1181%2C-734%2C4250%2C2266%2C0_0&invitationId=inv_bc6af9c8-3b41-4b00-b535-255d109f0afb)
 
 ## Flow Overview
 
-walk the directory and create a list of all source files - excluding specified such as bin, dist, vendor, node_modules, etc...
+Walk the directory and create a list of all source files - excluding specified such as bin, dist, vendor, node_modules, etc...
 
 running each file as a source through a lexer i.e. performing a lexical analysis, where we identify tokens and build an AST (Abstract Syntax Tree)
 
-> each file can be done in a separate go routine as there is no intrinsic relationship between them at this stage
+> each file can be done in a separate go routine as there is no intrinsic relationship between them at this stage. 
 
-### Lexer
+Here is a more [detailed internal overview](./docs/internals.md)
 
-TOKENs are kept to the following types - `token.TokenType`  - not listed as the list is likely to change/grow. 
+### Usage
 
-Special consideration will need to be given to files that are not able to contain comments or anything outside of their existing syntax - e.g. .json most commonly containing schemas. 
-
-> these cases a convention will need to be followed where by the name of the message that it is describing must be in the name of the file.
-
-### Parser
-
-Not using an existing parser generator like CGF, BNF, or EBNF is on purposes as the input source will only ever really be composed of parts we care about i.e. `gendoc` markers their beginning and end and what they enclose within them as text.
-
-We'll use the overly simplified Pratt Parser (top down method) as we'll have no need to for expression parsing onyl statement node creation with the associated/helper attributes.
+See [usage](./docs/usage.md) for more details.
 
 ## AsyncAPI standard
 
-The current [AsyncAPI standard spec](https://www.asyncapi.com/docs/reference/specification/v2.6.0) is at version `2.6.0`.
+[AsyncAPI at Next](./docs/asyncapi.md)
 
-The tool will deal with all the relevant sections to be able to build an AsyncAPI spec file from within a single repo.
+## Local development
 
-The asyncAPI is built from the `Application` - i.e. service down, each service will have a toplevel description - `info` key, which will in turn include 
+To run the full flow locally you can use the local:// storage protocol.
 
-### Important Properties
+See usage [local example](./docs/usage.md#LocalExample) for an example of how to work with and experiment locally with the outputs.
 
-- `id` name of the service. Will default to parent folder name - unless overridden
-    - format:  `urn:$business_domain:$bounded_context_domain:$service_name` => `urn:whds:packing:whds.packing.app`
-- `application` 
-    this is info about the service/application including descriptions and titles
-- `channels` outlines the topics/subscriptions or queues the application produces or is subscribed to.
-    - `topic/queue/subscription`
-        will each contain a message summary description, schema, any traits - i.e. re-useable components - such as the envelop for common parameters
+## Components
+
+For a full view of required components including publishing to the existing event catalog, the AsyncAPI document generator consists of the following auxilary components.
+
+### Schema Generation from DotNet
+
+Download SchemaGenerator for relevant architecture and run binary with required flags, see [here](./src/dotnet/Schema.Generator/README.md) for details.
 
 ### EventCatalog binding
 
-The translation of AsyncAPI into an EventCatalog set up. Whilst there are fairly standard mappings between the 2 processes - there are some nuances and requirements.
+The translation of AsyncAPI into an EventCatalog set up. Whilst there are fairly standard mappings between the 2 processes - there are some nuances and requirements, but this [plugin](./src/ts/eventcatalog-plugin-doc-generator-azblob/README.md) will be used to generate the eventcatalog compliant output.
+
+See on [NPM](TODO) and how to use it insid the existing eventcatalog app.
+
+### Infrastructure
+
+For remote publishing of generated interim and processed AsyncAPI documents a centralised bucket is required. The [definition](./terraform/examples/full/full.tf) and description of the flow can be found [here](./terraform/README.md).
+
+## Evolution
+
+Once satisfactory outcomes are achieved, the next step could be to generate clients directly. There are various options out there:
+
+- [Official AsyncAPI Generators](https://github.com/asyncapi/generator)
+- Write own?
+- There will be use cases when a single repo contains an entire definition needed for the doc generation to work, i.e. it will contain all the infrastructure/notes/models/schemas examples. IN this case a wrap around command can be exposed to combine the interim output generation with reading it and generating the full AsyncAPI. 
+    - E.g. the backstage.io required CRD can embed an entire AsyncAPI doc inside its spec payload.
+
+### Still needing attention
+
+- the merging of content within the same level could use a bit of work, namely not overwriting content defined in multiple places and perform a non-destructive merge where possible.
+- `servers` section inside the main `service` definition
+- `wip`: naming of operations and category types to allow for a more generic labelling types. e.g. categoryType of pubOperation is actually an eventcatalog subscriber.
+
+#### schemagenerator
+
+Dotnet CLI to inspect and generate schemas and JSON payload samples. 
+
+TODO:
+    - Generated Samples when includes datetime
+    - ENUMs in the generated SCHEMAs can sometimes come up as empty `""`

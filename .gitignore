@@ -7,19 +7,42 @@
 *.dll
 *.so
 *.dylib
+**/obj
+
+**/.autogened
+.vs
+.vscode
+**/*.zip
 
 # Test binary, built with `go test -c`
 *.test
+
+# dotnet
+TestResults
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
 # Dependency directories (remove the comment below to include it)
 vendor/
+dist/
+bin/
 
-# Go workspace file
-go.work
-**/.ignore*
-.coverage
+local/
+**/.coverage
 
 .DS_Store
+
+# Node_modules
+**/node_modules
+
+# Terraform
+**/terraform.tfvars
+**/.terraform
+**/terraform.tfstate.backup
+**/terraform.tfstate
+
+# results
+.combined-raw.json
+.gendoc
+.ignore

@@ -1,0 +1,32 @@
+{
+  "name": "@dnitsch/plugin-doc-generator-asyncapi-remote-source",
+  "version": "0.8.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./src/**/*/*.* -f codeframe",
+    "validate": "pnpm run prettier --list-different && npm run lint",
+    "license:check:audit": "../../../node_modules/.bin/license-report --config=../../../license-report-config.json",
+    "license:check:allowed": "license-checker --production --excludePrivatePackages --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*;CC-BY-4.0;WTFPL'",
+    "test": "../../../node_modules/.bin/jest --coverage --no-cache",
+    "test:watch": "../../../node_modules/.bin/jest --coverage --watchAll",
+    "view:coverage": "open .coverage/index.html",
+    "build": "../../../node_modules/.bin/tsc --project ./tsconfig.json",
+    "build:watch": "npm run build -- -w",
+    "clean:tree": "git clean -idx"
+  },
+  "author": "Dusan_Nitschneider@next.co.uk",
+  "license": "MIT",
+  "dependencies": {
+    "@asyncapi/parser": "3.0.5",
+    "@azure/core-paging": "1.5.0",
+    "@azure/identity": "4.0.1",
+    "@azure/storage-blob": "12.17.0",
+    "@eventcatalog/utils": "0.2.2",
+    "fs-extra": "11.2.0"
+  },
+  "devDependencies": {
+    "@eventcatalog/types": "0.4.2"
+  },
+  "publishConfig": {}
+}

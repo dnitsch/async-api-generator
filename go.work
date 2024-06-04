@@ -1,0 +1,5 @@
+// added go.work ensure existing repo structure can be followed
+// this is essentially the equivalent of a .sln file in the root
+go 1.22
+
+use ./src/go/async-api-gen-doc

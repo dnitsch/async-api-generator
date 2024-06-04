@@ -1,0 +1,85 @@
+{{- define "server" }}
+    url: {{ .URL }}
+    description: {{ .Description }}
+    protocol: {{ .Protocol }}
+{{- end }}
+{{- /* message is invoked from channel  */ -}}
+
+# Explanation of the [semantics of pub/sub in AsyncAPI](https://www.asyncapi.com/blog/publish-subscribe-semantics)
+{{- define "operation" }}
+      summary: | 
+        {{ or (.Summary | trim) "No Operation Summary provided..." }}
+      description: |
+        {{ or (.Description | trim) "No Operation Description provided..." }}
+      operationId: {{ .OperationId }}
+      # Common operation traits relating to transport of the message over this specific pub/sub channel
+      traits: []
+      {{- if .Message }}
+      message:
+        name: {{ .Message.MessageId }}
+        messageId: {{ .Message.MessageId }}
+        title: {{ or .Message.Title .Message.MessageId }}
+        summary: |
+          {{ or .Message.Summary "No Message Summary provided..." | nindent 10 }}
+        description: | 
+          {{ or .Message.Description "No Message Description provided..." | nindent 10 }}
+        contentType: application/json
+        # if message examples in JSON use here
+        examples: []
+        ##### Additional non AsyncAPI parseable components go here #####
+        ###BEGIN_EVENTCATALOG_EXAMPLES###
+        {{- range $name, $val := .Message.Examples }}  
+        {{ "#->" }}{{  $val | mustToJson | b64enc}}
+        {{- end }} 
+        ###END_EVENTCATALOG_EXAMPLES###
+        # common traits can be described here - this is akin to the envelope concept in [EventCatalog.dev](https://www.eventcatalog.dev/docs/)
+        traits: []
+        # this has to be a valid json schema string
+        {{- if .Message.Payload }}
+        payload: {{ .Message.Payload | indent 10 }}
+        {{- end }}
+      {{- end }}
+{{- end }}
+{{- /* channel invoked from root in a loop and will build a map of channels */ -}}
+{{- define "channel" }}
+    description: |
+      {{ or (.Description | trimSuffix "\n" | nindent 6) "No Channel description provided..." }}
+    parameters: {}
+    {{- if .Publish }}
+    publish: 
+        {{- template "operation" .Publish }}
+    {{- end -}}
+    {{- if .Subscribe }}
+    subscribe: 
+        {{- template "operation" .Subscribe }}
+    {{- end -}}
+{{- end }}
+{{- define "info" }}
+  title: {{ .Title }}
+  version: {{ or .Version "0.0.1" }}
+  description: |
+    {{ .Description | nindent 4 | trim }}
+{{- end }}
+{{- /* asyncapi document start */ -}}{{ " " }}
+asyncapi: {{ .AsyncAPI }}
+id: {{ .ID }}
+{{- if .Info }}
+info: 
+  {{- template "info" .Info }}
+{{- end  }}
+{{- if .Servers }}
+servers:
+{{- range $name, $val := .Servers }}
+  {{ $name }}:
+    {{- template "server" $val }}
+{{- end }}
+{{- end }}
+tags: {{ .Tags | toJson }}
+defaultContentType: {{ .DefaultContentType }}
+# Channels is a map of physical queues or topics that this service ( as identified by the ID) 
+# will either pulbish or subscribe to 
+channels:
+{{- range $name, $val := .Channels }}
+  {{ $name }}: 
+    {{- template "channel" $val }}
+{{- end }}
