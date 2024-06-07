@@ -1,36 +1,24 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using System.ComponentModel.DataAnnotations;
+using schemagenerator;
 
+var app = new CommandLineApplication();
 
-namespace schemagenerator
+app.HelpOption();
+
+var path = app.Option("-p|--path <PATH_TO_DLL>", "The path to DLL", CommandOptionType.SingleValue);
+var nsFilter = app.Option("-f|--filter <NAMESPACE>", "Namespace Filter, multiple can be provided", CommandOptionType.MultipleValue);
+var derefSchema = app.Option("-d|--deref", "Dereference Schema. Removes addtional schema elements and inlines them in a single top level property", CommandOptionType.NoValue);
+var output = app.Option("-o|--output <OUTPUT_DIR>", "Output directory", CommandOptionType.SingleValue);
+output.DefaultValue = ".autogened";
+
+var contextToken = new CancellationToken();
+
+app.OnExecuteAsync((contextToken) =>
 {
-        [Command]
-    public class Program
-    {
-        public static Task<int> Main(string[] args) => CommandLineApplication.ExecuteAsync<Program>(args);
+        var gen = new Generate(path.Value(), nsFilter?.Values.ToArray(), derefSchema.Values.Count > 0, output.Value());
+        gen.SchemaFromTypes();
+        return Task.FromResult(true);
 
-        [Required]
-        [Option(Description = "Path to the DLL", ShortName = "p")]
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-        public string DllPath { get; }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+});
 
-        [Required]
-        [Option(Description = "Namespace Filter, multiple can be provided with a comma used as a separator", LongName = "namespace-filter", ShortName = "f", ShowInHelpText = true)]
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-        public string NamespaceFilter { get; }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
-
-        [Option(Description = "Output directory", LongName = "output-dir", ShortName = "o")]
-        public string OutputDir { get; } = ".autogened";
-
-        [Option(Description = "Dereference Schema", LongName = "deref-schema", ShortName = "d")]
-        public bool Deref { get; } = false;
-
-        private void OnExecuteAsync()
-        {
-            var gen = new Generate(DllPath, NamespaceFilter.Split(","), Deref, OutputDir); 
-            gen.SchemaFromTypes();
-        }
-    }
-}
+return app.Execute(args);

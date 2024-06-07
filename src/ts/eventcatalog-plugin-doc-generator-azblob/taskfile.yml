@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+tasks:
+  node_prereq:
+    internal: true
+    cmds:
+      - npm i -g pnpm@8.6.0
+      - rm -rf dist node_modules .coverage
+
+  install_node:
+    desc: Install dependencies
+    internal: true
+    deps:
+      - node_prereq
+    cmds:
+      - pnpm i
+
+  # EventCatalog Plugin tasks
+  test:
+    desc: Builds and tests the EventCatalog plugin
+    summary: |
+      
+      Testing of the plugin and any local dependencies against a licence checker 
+    deps:
+      - install_node
+    cmds: 
+      - pnpm run license:check 
+      - pnpm run test
+
+  build:
+    desc: Builds  the EventCatalog plugin
+    summary: |
+      Building and testing of the plugin and any local dependencies
+    deps:
+      - test
+    cmds: 
+      - pnpm run build 
+
+  show_coverage: 
+    desc: Opens the current coverage viewer for the the event catalog plugin.
+    deps:
+      - test_eventcatalog_plugin
+    cmd: pnpm run --filter @dnitsch/plugin-doc-generator-asyncapi-remote-source view:coverage
+
+  publish:
+    desc: Publishes to local NPM
+    cmds: 
+      - pnpm run build 
+      - pnpm publish --no-git-checks --filter "@dnitsch/*"
+  

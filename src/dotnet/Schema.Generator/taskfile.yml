@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: '3'
+
+env:
+  NETCORE_TARGET_ARCH: "osx-arm64"
+
+tasks:
+  clean_dotnet:
+    internal: true
+    cmds:
+      - rm -rf dist/dotnet/*
+      - mkdir -p dist/dotnet
+  # SchemaGenerator DOTNET
+  schemagenerator_bin-gen:
+    desc: Builds a single binary of the schema generator for each platform
+    deps:
+      - clean_dotnet
+    cmds:
+      - cmd: |
+          cd src/dotnet 
+          dotnet clean Schema.Generator/Schema.Generator.sln
+      - for: { var: NETCORE_TARGET_ARCHS, as: NETCORE_TARGET_ARCH }
+        cmd: | 
+          cd src/dotnet
+          dotnet publish Schema.Generator/Schema.Generator.CLI/Schema.Generator.CLI.csproj -r {{.NETCORE_TARGET_ARCH}} -o ../../dist/dotnet/{{.NETCORE_TARGET_ARCH}};
+    vars:
+      NETCORE_TARGET_ARCHS: win-x64 osx-x64 osx-arm64 linux-x64 linux-musl-x64
+    env:
+      VERSION: "{{.GIT_TAG}}"
+
+  schemagenerator_test:
+    desc: Runs the tests for SchemaGenerator
+    cmd: |
+      cd src/dotnet/Schema.Generator
+      rm -rf .coverage
+      dotnet build Sample.Generated.DLL.Source/Sample.Generated.DLL.Source.csproj
+      dotnet test -l trx --collect "XPlat Code Coverage" --results-directory .coverage
+    env:
+      VERSION: 0.0.1
+
+  schemagenerator_show-coverage:
+    desc: Shows coverage in a visual tool
+    preconditions:
+      - dotnet --help
+    deps:
+      - schemagenerator_test
+    cmds:
+      - cmd: dotnet tool install -g dotnet-reportgenerator-globaltool
+      - |
+        cd src/dotnet/Schema.Generator
+        reportgenerator -reports:".coverage/*/coverage.cobertura.xml" -targetdir:".coverage/report" -reporttypes:Html
+        {{if eq OS "windows"}}start ""{{else}}open{{end}} .coverage/report/index.html
