@@ -1,8 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <!-- net6 does not work properly on macos arm64 when compiled to a single binary -->
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -11,7 +9,7 @@
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-     <RuntimeIdentifiers>win-x64;osx-x64;osx-arm64;linux-x64;linux-musl-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win-x64;osx-x64;osx-arm64;linux-x64;linux-musl-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
@@ -25,6 +23,7 @@
     <PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
+    <!-- This is for reference when peeking into assemblies of `Microsoft.AspNetCore.App` type -->
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>
