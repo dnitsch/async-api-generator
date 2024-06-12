@@ -13,9 +13,8 @@ output.DefaultValue = ".autogened";
 
 var contextToken = new CancellationToken();
 
-// var shortV = "0.2.0";
-// app.VersionOption($"{shortV}", shortV); // "0.2.0-7a9f46e78b1104a46a36c46ab80f15462aea2d83"
-// app.VersionOptionFromAssemblyAttributes();
+// TODO add from assembly
+app.VersionOption("--version", "0.2.0", "0.2.0-7a9f46e78b1104a46a36c46ab80f15462aea2d83"); 
 
 app.OnExecuteAsync((contextToken) =>
 {
