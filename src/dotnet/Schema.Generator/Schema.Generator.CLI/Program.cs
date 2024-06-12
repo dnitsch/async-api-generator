@@ -13,6 +13,10 @@ output.DefaultValue = ".autogened";
 
 var contextToken = new CancellationToken();
 
+// var shortV = "0.2.0";
+// app.VersionOption($"{shortV}", shortV); // "0.2.0-7a9f46e78b1104a46a36c46ab80f15462aea2d83"
+// app.VersionOptionFromAssemblyAttributes();
+
 app.OnExecuteAsync((contextToken) =>
 {
         var gen = new Generate(path.Value(), nsFilter?.Values.ToArray(), derefSchema.Values.Count > 0, output.Value());

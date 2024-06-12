@@ -23,10 +23,16 @@ tasks:
         cmd: | 
           cd src/dotnet
           dotnet publish Schema.Generator/Schema.Generator.CLI/Schema.Generator.CLI.csproj -r {{.NETCORE_TARGET_ARCH}} -o ../../dist/dotnet/{{.NETCORE_TARGET_ARCH}};
+          cd ../../dist/dotnet 
+          zip -r {{.NETCORE_TARGET_ARCH}}.zip ./{{.NETCORE_TARGET_ARCH}}  
     vars:
       NETCORE_TARGET_ARCHS: win-x64 osx-x64 osx-arm64 linux-x64 linux-musl-x64
     env:
-      VERSION: "{{.GIT_TAG}}"
+      VERSION: "{{ .GIT_TAG}}"
+    requires:
+      vars:
+        - GIT_TAG
+
 
   test:
     desc: Runs the tests for SchemaGenerator
@@ -36,7 +42,7 @@ tasks:
       dotnet build Sample.Generated.DLL.Source/Sample.Generated.DLL.Source.csproj
       dotnet test -l trx --collect "XPlat Code Coverage" --results-directory .coverage
     env:
-      VERSION: 0.0.1
+      VERSION: 0.2.0
 
   show-coverage:
     desc: Shows coverage in a visual tool
