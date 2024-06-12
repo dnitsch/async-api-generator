@@ -153,7 +153,7 @@ func Test_BuildAsyncAPIRoot_from_tree(t *testing.T) {
 		},
 	}
 
-	g := generate.New(globalConf, log.New(os.Stdout, log.DebugLvl))
+	g := generate.New(globalConf, log.New(&bytes.Buffer{}, log.DebugLvl))
 	g.LoadInputsFromFiles(input)
 
 	if err := g.ConvertProcessed(); err != nil {
@@ -171,7 +171,7 @@ func Test_BuildAsyncAPIRoot_from_tree(t *testing.T) {
 	got, _ := fshelper.ListFiles(testDir)
 
 	if len(got) != 2 {
-		t.Error("wanted 2 services written out")
+		t.Errorf("got (%v) wanted 2 services written out", len(got))
 	}
 
 	// for _, file := range got {

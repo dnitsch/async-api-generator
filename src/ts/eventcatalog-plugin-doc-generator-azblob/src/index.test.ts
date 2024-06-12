@@ -58,7 +58,7 @@ describe("index", () => {
       pluginOpts.keyToDestinationMutation = { 
         baseDir: cwd(), 
         find: "foo.txt", 
-        replace: path.join("src", "__mocks__", "sample", "urn:domain:s2s:service1.yml")
+        replace: path.join("src", "__mocks__", "sample", "urn:domain:bar:service1.yml")
       }
       pluginOpts.outputDir = outputPath
       // Act
@@ -91,7 +91,7 @@ describe("index", () => {
       pluginOpts.keyToDestinationMutation = { 
         baseDir: cwd(), 
         find: "foo.txt", 
-        replace: path.join("src", "__mocks__","sample", "urn:domain:s2s:service1.yml")
+        replace: path.join("src", "__mocks__","sample", "urn:domain:bar:service1.yml")
       }
       pluginOpts.outputDir = outputPath
       

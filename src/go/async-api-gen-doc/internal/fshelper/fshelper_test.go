@@ -12,7 +12,7 @@ import (
 )
 
 func Test_ListFiles_in_mock_directory(t *testing.T) {
-	baseDir := "test/bazquxsample"
+	baseDir := "test/foo.sample"
 
 	got, err := fshelper.ListFiles(fshelper.DebugDirHelper(t, baseDir, "internal/fshelper", "../../"))
 	if err != nil {
@@ -23,9 +23,9 @@ func Test_ListFiles_in_mock_directory(t *testing.T) {
 		expectPath string
 		expectType string
 	}{
-		{"someeventpoco.cs", "test/bazquxsample/src/someeventpoco.cs", "cs"},
-		{"index.md", "test/bazquxsample/index.md", "md"},
-		{"sample.tf", "test/bazquxsample/infra/sample.tf", "tf"},
+		{"someeventpoco.cs", "test/foo.sample/src/someeventpoco.cs", "cs"},
+		{"index.md", "test/foo.sample/index.md", "md"},
+		{"sample.tf", "test/foo.sample/infra/sample.tf", "tf"},
 	}
 	var found *fshelper.FileList = nil
 	for _, tt := range ttests {

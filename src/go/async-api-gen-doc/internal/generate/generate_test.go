@@ -2,7 +2,6 @@ package generate_test
 
 import (
 	"bytes"
-	"os"
 	"testing"
 
 	"github.com/dnitsch/async-api-generator/internal/fshelper"
@@ -11,12 +10,12 @@ import (
 	log "github.com/dnitsch/simplelog"
 )
 
-var baseDir = "test/bazquxsample"
+var baseDir = "test/foo.sample"
 
 func Test_SAMPLE_Generate_ProcessedInputs_from_directory_input(t *testing.T) {
 
 	inputs, _ := fshelper.ListFiles(fshelper.DebugDirHelper(t, baseDir, "internal/generate", "../../"))
-	g := generate.New(&generate.Config{ParserConfig: parser.Config{ServiceId: "bazquxsample", ServiceRepoUrl: "https://github.com/asynapi-gen"}}, log.New(os.Stderr, log.ErrorLvl))
+	g := generate.New(&generate.Config{ParserConfig: parser.Config{ServiceId: "bazquxsample", ServiceRepoUrl: "https://github.com/asynapi-gen"}}, log.New(&bytes.Buffer{}, log.ErrorLvl))
 	g.LoadInputsFromFiles(inputs)
 
 	err := g.GenDocBlox()

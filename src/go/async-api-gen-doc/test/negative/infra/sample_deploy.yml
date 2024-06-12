@@ -1,0 +1,12 @@
+some: yml
+
+#//+gendoc category=baz
+envs: 
+  dev: 
+    url: "dev.domain.com"
+  preprod:
+    url: "pre.domain.com"
+  prod: 
+    url: "prod.domain.com"
+#//-gendoc
+

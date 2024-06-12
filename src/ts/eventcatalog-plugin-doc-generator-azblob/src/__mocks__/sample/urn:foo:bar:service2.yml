@@ -1,5 +1,5 @@
 asyncapi: 2.5.0
-id: urn:domain:s2s:service2
+id: urn:domain:bar:service2
 info:
   title: service2
   version: 0.0.1
@@ -13,7 +13,7 @@ defaultContentType: application/json
 # Channels is a map of physical queues or topics that this service ( as identified by the ID) 
 # will either pulbish or subscribe to 
 channels:
-  domain-demand~demand-cancelled-domain-event:
+  foo~bar:
     description: |
       No Channel description provided...
     parameters: {}
@@ -40,18 +40,38 @@ channels:
         # examples: []
         ##### Additional non AsyncAPI parseable components go here #####
         ###BEGIN_EVENTCATALOG_EXAMPLES###  
-          #->eyJuYW1lIjoiUGFja2luZ0FyZWFFdmVudC0wLWV4YW1wbGUiLCJzdW1tYXJ5Ijoie1wiZmlsZVwiOlwic29tZWV2ZW50cG9jby5jc1sxMy0zMV1cIixcInBhdGhcIjpcIi9Vc2Vycy9kdXNhbm5pdHNjaG5laWRlci9naXQvbmV4dC93YXJlaG91c2UtaW50ZWdyYXRpb24vV2hkcy5Ub29scy5Bc3luY0FQSUdlbmVyYXRvci9zcmMvZ28vYXN5bmMtYXBpLWdlbi1kb2MvdGVzdC93aGRzLnNhbXBsZS9zcmMvc29tZWV2ZW50cG9jby5jc1wifSIsInBheWxvYWQiOiJuYW1lc3BhY2UgV2hkcy5QYWNraW5nLlNlcnZpY2VzLlBhY2tBcmVhLkNvbnRyYWN0cy5FdmVudHM7XG5cbnB1YmxpYyBjbGFzcyBQYWNraW5nQXJlYUV2ZW50IDogV2hkc01lc3NhZ2VcdTAwM2NQYWNraW5nQXJlYUV2ZW50UGF5bG9hZFx1MDAzZVxue1xuICAgIHB1YmxpYyBQYWNraW5nQXJlYUV2ZW50KFBhY2tpbmdBcmVhRXZlbnRQYXlsb2FkIHBheWxvYWQpXG4gICAge1xuICAgICAgICBNZXNzYWdlVHlwZU5hbWUgPSBuYW1lb2YoUGFja2luZ0FyZWFFdmVudCk7XG4gICAgICAgIFNvdXJjZVN5c3RlbSA9IFBhY2tBcmVhU2VydmljZUNvbnN0YW50cy5OYW1lO1xuICAgICAgICBHdWlkID0gR3VpZC5OZXdHdWlkKCk7XG4gICAgICAgIENyZWF0aW9uRGF0ZSA9IERhdGVUaW1lLlV0Y05vdztcbiAgICAgICAgTnVtYmVyID0gMTtcbiAgICAgICAgTnVtYmVyT2YgPSAxO1xuICAgICAgICBPd25lciA9IHN0cmluZy5FbXB0eTtcbiAgICAgICAgU3RyZWFtID0gU3RyaW5nLkVtcHR5O1xuICAgICAgICBQYXlsb2FkID0gcGF5bG9hZDtcbiAgICB9XG59In0= 
+          #->ey....
         ###END_EVENTCATALOG_EXAMPLES###
         # common traits can be described here - this is akin to the envelope concept in [EventCatalog.dev](https://www.eventcatalog.dev/docs/)
         traits: []
         # this has to be a valid json schema string
-        payload:           {
-              "$schema": "http://json-schema.org/draft-07/schema",
-              "$id": "http://example.com/example.json",
-              "type": "object",
-              "required": [
-                  "guid",
-                  "creationDate",
-              ],
+        payload: {
+          "$id": "https://example.com/blog-post.schema.json",
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "description": "A representation of a blog post",
+          "type": "object",
+          "required": ["title", "content", "author"],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "content": {
+              "type": "string"
+            },
+            "publishedDate": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "author": {
+              "$ref": "https://example.com/user-profile.schema.json"
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
         }
+
           

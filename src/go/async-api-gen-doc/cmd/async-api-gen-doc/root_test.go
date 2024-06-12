@@ -10,7 +10,7 @@ import (
 )
 
 func Test_root_ok(t *testing.T) {
-	baseDir := "test/bazquxsample"
+	baseDir := "test/foo.sample"
 	b := new(bytes.Buffer)
 
 	cmd := asyncapigendoc.AsyncAPIGenCmd

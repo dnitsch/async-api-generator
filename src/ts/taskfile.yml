@@ -8,9 +8,10 @@ tasks:
       - npm i -g pnpm@8.6.0
       - rm -rf dist node_modules .coverage
 
-  install_node:
+  install:
     desc: Install dependencies
     internal: true
+    dir: src/ts/eventcatalog-plugin-doc-generator-azblob
     deps:
       - node_prereq
     cmds:
@@ -19,17 +20,18 @@ tasks:
   # EventCatalog Plugin tasks
   test:
     desc: Builds and tests the EventCatalog plugin
+    dir: src/ts/eventcatalog-plugin-doc-generator-azblob
     summary: |
-      
       Testing of the plugin and any local dependencies against a licence checker 
     deps:
-      - install_node
+      - install
     cmds: 
       - pnpm run license:check 
       - pnpm run test
 
   build:
     desc: Builds  the EventCatalog plugin
+    dir: src/ts/eventcatalog-plugin-doc-generator-azblob
     summary: |
       Building and testing of the plugin and any local dependencies
     deps:
@@ -39,11 +41,13 @@ tasks:
 
   show_coverage: 
     desc: Opens the current coverage viewer for the the event catalog plugin.
+    dir: src/ts/eventcatalog-plugin-doc-generator-azblob
     deps:
-      - test_eventcatalog_plugin
+      - test
     cmd: pnpm run --filter @dnitsch/plugin-doc-generator-asyncapi-remote-source view:coverage
 
   publish:
+    dir: src/ts/eventcatalog-plugin-doc-generator-azblob
     desc: Publishes to local NPM
     cmds: 
       - pnpm run build 

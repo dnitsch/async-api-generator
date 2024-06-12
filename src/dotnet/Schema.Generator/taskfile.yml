@@ -11,7 +11,7 @@ tasks:
       - rm -rf dist/dotnet/*
       - mkdir -p dist/dotnet
   # SchemaGenerator DOTNET
-  schemagenerator_bin-gen:
+  bin-gen:
     desc: Builds a single binary of the schema generator for each platform
     deps:
       - clean_dotnet
@@ -28,7 +28,7 @@ tasks:
     env:
       VERSION: "{{.GIT_TAG}}"
 
-  schemagenerator_test:
+  test:
     desc: Runs the tests for SchemaGenerator
     cmd: |
       cd src/dotnet/Schema.Generator
@@ -38,7 +38,7 @@ tasks:
     env:
       VERSION: 0.0.1
 
-  schemagenerator_show-coverage:
+  show-coverage:
     desc: Shows coverage in a visual tool
     preconditions:
       - dotnet --help

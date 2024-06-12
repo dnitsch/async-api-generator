@@ -17,15 +17,15 @@ func Test_GenDoc_marshalled_successfully_from_string(t *testing.T) {
 		expect gendoc.GenDoc
 	}{
 		"when using full property names": {
-			`parent=domain-foo~bar-assigned id=BizContextAreaEvent category=message type=example subscribers=bazquxdemand,bazquxfoo,bazquxbar`,
+			`parent=domain-foo~bar-assigned id=BizContextAreaEvent category=message type=example subscribers=bazquxoperation,bazquxfoo,bazquxbar`,
 			gendoc.GenDoc{Id: "BizContextAreaEvent", Parent: "domain-foo~bar-assigned", CategoryType: gendoc.MessageBlock, ContentType: gendoc.Example},
 		},
 		"when using  shorthand property names": {
-			`parent=domain-foo~bar-assigned id=BizContextAreaEvent c=message type=example sbs=bazquxdemand,bazquxfoo,bazquxbar`,
+			`parent=domain-foo~bar-assigned id=BizContextAreaEvent c=message type=example sbs=bazquxoperation,bazquxfoo,bazquxbar`,
 			gendoc.GenDoc{Id: "BizContextAreaEvent", Parent: "domain-foo~bar-assigned", CategoryType: gendoc.MessageBlock, ContentType: gendoc.Example},
 		},
 		"when setting serviceId": {
-			`parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample c=message type=example sbs=bazquxdemand,bazquxfoo,bazquxbar producers=bazquxsample`,
+			`parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample c=message type=example sbs=bazquxoperation,bazquxfoo,bazquxbar producers=bazquxsample`,
 			gendoc.GenDoc{Id: "BizContextAreaEvent",
 				Parent:       "domain-foo~bar-assigned",
 				CategoryType: gendoc.MessageBlock,
@@ -34,7 +34,7 @@ func Test_GenDoc_marshalled_successfully_from_string(t *testing.T) {
 			},
 		},
 		"when setting channelId": {
-			`parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample channelId=bazquxsample c=message type=example sbs=bazquxdemand,bazquxfoo,bazquxbar producers=bazquxsample`,
+			`parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample channelId=bazquxsample c=message type=example sbs=bazquxoperation,bazquxfoo,bazquxbar producers=bazquxsample`,
 			gendoc.GenDoc{Id: "BizContextAreaEvent",
 				Parent:       "domain-foo~bar-assigned",
 				CategoryType: gendoc.MessageBlock,
@@ -44,7 +44,7 @@ func Test_GenDoc_marshalled_successfully_from_string(t *testing.T) {
 			},
 		},
 		"when including closing comments": {
-			`parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample channelId=bazquxsample c=message type=example sbs=bazquxdemand,bazquxfoo,bazquxbar producers=bazquxsample -->`,
+			`parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample channelId=bazquxsample c=message type=example sbs=bazquxoperation,bazquxfoo,bazquxbar producers=bazquxsample -->`,
 			gendoc.GenDoc{Id: "BizContextAreaEvent",
 				Parent:       "domain-foo~bar-assigned",
 				CategoryType: gendoc.MessageBlock,
@@ -73,7 +73,7 @@ func Test_Unmarshal_from_token_should_succeed(t *testing.T) {
 		expect gendoc.GenDoc
 	}{
 		"when using correct annotation": {
-			token.Token{MetaAnnotation: `parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample channelId=bazquxsample c=message type=example sbs=bazquxdemand,bazquxfoo,bazquxbar producers=bazquxsample`},
+			token.Token{MetaAnnotation: `parent=domain-foo~bar-assigned id=BizContextAreaEvent serviceId=bazquxsample channelId=bazquxsample c=message type=example sbs=bazquxoperation,bazquxfoo,bazquxbar producers=bazquxsample`},
 			gendoc.GenDoc{Id: "BizContextAreaEvent",
 				Parent:       "domain-foo~bar-assigned",
 				CategoryType: gendoc.MessageBlock,

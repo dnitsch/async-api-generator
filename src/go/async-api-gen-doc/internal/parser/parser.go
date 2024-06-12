@@ -315,16 +315,16 @@ func (p *Parser) serviceUrn(id string) string {
 //		locals {
 //			topics = [
 //			  //+gendoc category=channel type=nameId
-//			  "domain-demand~demand-cancelled-domain-event",
+//			  "foo~bar",
 //			  //-gendoc
-//			  "domain-demand~demand-updated-domain-event",
+//			  "domain-operation~operation-updated-domain-event",
 //			   ...
 //			]
 //
 // ...
 // ```
 //
-// The extracted Id will be `domain-demand~demand-cancelled-domain-event`
+// The extracted Id will be `foo~bar`
 //
 // If an Id is successfully extracted it is assigned to the Id value and it is returned else the object is returned unchanged
 func attemptIdExtract(a gendoc.GenDoc, docBlock *GenDocBlock) gendoc.GenDoc {

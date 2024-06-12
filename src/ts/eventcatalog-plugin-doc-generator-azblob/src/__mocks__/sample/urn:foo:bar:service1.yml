@@ -1,0 +1,70 @@
+asyncapi: 2.5.0
+id: urn:domain:bar:service1
+info:
+  title: service1
+  version: 0.0.1
+  description: |
+    # service2
+    
+    This application deals with some stuff Service2Service message handling and conversion
+    
+    More info goes here...
+    
+    ## Broker
+    
+    ServiceBus - Azure ServiceBus
+    
+     - Dev
+    
+        [some-sbus-dev](https://portal.azure.com/#@foobar.onmicrosoft.com/resource/subscriptions/.../...)
+        
+     - PreProd
+        
+        [some-sbus-preprod](https://portal.azure.com/#@foobar.onmicrosoft.com/resource/.../.../)
+defaultContentType: application/json
+# Channels is a map of physical queues or topics that this service ( as identified by the ID) 
+# will either pulbish or subscribe to 
+channels:
+  domain-listener~some-op:
+    description: |
+      No Channel description provided...
+    parameters: {}
+    publish:
+      summary: | 
+        No Operation Summary provided...
+      description: |
+        this operation publishes this message
+      operationId: some-op
+      # Common operation traits relating to transport of the message over this specific pub/sub channel
+      traits: []
+      message:
+        name: some-op_v1
+        messageId: some-op_v1
+        title: some-op_v1
+        summary: |
+          
+          No Message Summary provided...
+        description: | 
+          
+          No Message Description provided...
+        contentType: application/json
+        # if message examples in JSON use here
+        # examples: []
+        ##### Additional non AsyncAPI parseable components go here #####
+        ###BEGIN_EVENTCATALOG_EXAMPLES###  
+          #->ey....
+        ###END_EVENTCATALOG_EXAMPLES###
+        # common traits can be described here - this is akin to the envelope concept in [EventCatalog.dev](https://www.eventcatalog.dev/docs/)
+        traits: []
+        # this has to be a valid json schema string
+        payload: {
+            "title": "New Blog Post",
+            "content": "This is the content of the blog post...",
+            "publishedDate": "2023-08-25T15:00:00Z",
+            "author": {
+              "username": "authoruser",
+              "email": "author@example.com"
+            },
+            "tags": ["Technology", "Programming"]
+          }
+          

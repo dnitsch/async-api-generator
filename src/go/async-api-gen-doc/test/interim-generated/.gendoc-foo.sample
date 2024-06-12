@@ -1,0 +1,472 @@
+[
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "type=description category=info id=foo.sample -->",
+      "line": 1,
+      "column": 64,
+      "source": {
+        "file": "index.md",
+        "path": "src/test/foo.sample/index.md"
+      }
+    },
+    "annotation": {
+      "category": "info",
+      "type": "description",
+      "name": "foo.sample",
+      "id": "foo.sample",
+      "serviceURN": "urn:foo:bar:foo.sample",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 1,
+    "value": "# Sample\n\nThis is some lengthy description of the service itself.\n\nencompassed and in Markdown readable as per usual\n\n",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 8,
+      "column": 20,
+      "source": {
+        "file": "index.md",
+        "path": "src/test/foo.sample/index.md"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "category=info type=description",
+      "line": 3,
+      "column": 42,
+      "source": {
+        "file": "sample_deploy.yml",
+        "path": "src/test/foo.sample/infra/sample_deploy.yml"
+      }
+    },
+    "annotation": {
+      "category": "info",
+      "type": "description",
+      "name": "foo.sample",
+      "id": "foo.sample",
+      "serviceId": "",
+      "channelId": "",
+      "serviceURN": "urn:foo:bar:foo.sample",
+      "parent": "",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 1,
+    "value": "envs: \n  dev: \n    url: \"dev.domain.com\"\n  preprod:\n    url: \"pre.domain.com\"\n  prod: \n    url: \"prod.domain.com\"\n#",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 11,
+      "column": 18,
+      "source": {
+        "file": "sample_deploy.yml",
+        "path": "src/test/foo.sample/infra/sample_deploy.yml"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "category=channel type=nameId service_id=[foo.app.one]",
+      "line": 3,
+      "column": 72,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    },
+    "annotation": {
+      "category": "channel",
+      "type": "nameId",
+      "name": "foo-operation~operation-cancelled-domain-event",
+      "id": "foo-operation~operation-cancelled-domain-event",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "foo.sample",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 2,
+    "value": "    \"foo-operation~operation-cancelled-domain-event\",\n   ",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 5,
+      "column": 20,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "category=channel id=foo-operation-subscription service_id=[foo.app.one]",
+      "line": 21,
+      "column": 90,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    },
+    "annotation": {
+      "category": "channel",
+      "type": "",
+      "name": "foo-operation-subscription",
+      "id": "foo-operation-subscription",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "foo.sample",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 2,
+    "value": "      topic : azurerm_servicebus_topic.ItemSortation-waypointCancelled-topic,\n      name : \"foo-operation-subscription\"\n     ",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 24,
+      "column": 22,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "category=channel id=foo-operation-subscription type=description service_id=[foo.app.one]",
+      "line": 28,
+      "column": 101,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    },
+    "annotation": {
+      "category": "channel",
+      "type": "description",
+      "name": "foo-operation-subscription",
+      "id": "foo-operation-subscription",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "foo.sample",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 2,
+    "value": "This channel is used to convey subscriptions",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 30,
+      "column": 16,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "category=channel id=foo-operation-subscription type=nameId service_id=[foo.app.one]",
+      "line": 33,
+      "column": 102,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    },
+    "annotation": {
+      "category": "channel",
+      "type": "nameId",
+      "name": "foo-operation-subscription",
+      "id": "foo-operation-subscription",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "foo.sample",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 2,
+    "value": "     ",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 34,
+      "column": 22,
+      "source": {
+        "file": "sbus.tf",
+        "path": "src/test/foo.sample/infra/sbus.tf"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "category=pubOperation type=description id=BuxQuz parent=foo-operation~operation-cancelled-domain-event isSub=true",
+      "line": 6,
+      "column": 128,
+      "source": {
+        "file": "someeventpoco.cs",
+        "path": "src/test/foo.sample/src/someeventpoco.cs"
+      }
+    },
+    "annotation": {
+      "category": "pubOperation",
+      "type": "description",
+      "name": "BuxQuz",
+      "id": "BuxQuz",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "foo-operation~operation-cancelled-domain-event",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 3,
+    "value": "this operation publishes this message",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 8,
+      "column": 16,
+      "source": {
+        "file": "someeventpoco.cs",
+        "path": "src/test/foo.sample/src/someeventpoco.cs"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "category=pubOperation type=description id=PubOpInInfra parent=foo-operation~operation-cancelled-domain-event ",
+      "line": 6,
+      "column": 128,
+      "source": {
+        "file": "someeventpoco_other.tf",
+        "path": "src/test/foo.sample/src/someeventpoco_other.tf"
+      }
+    },
+    "annotation": {
+      "category": "subOperation",
+      "type": "description",
+      "name": "PubOpInInfra",
+      "id": "PubOpInInfra",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "foo-operation~operation-cancelled-domain-event",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 3,
+    "value": "this operation subscribes to message",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 8,
+      "column": 16,
+      "source": {
+        "file": "someeventpoco.cs",
+        "path": "src/test/foo.sample/src/someeventpoco_other.tf"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "MESSAGE",
+      "literal": "",
+      "annotationLiteral": "",
+      "line": 0,
+      "column": 0,
+      "source": {
+        "file": "BuxQuz.schema.json",
+        "path": "src/test/foo.sample/src/schemas/BuxQuz.schema.json"
+      }
+    },
+    "annotation": {
+      "category": "message",
+      "type": "json_schema",
+      "name": "",
+      "id": "BuxQuz",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "BuxQuz",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 4,
+    "value": "{\n    \"$schema\": \"http://json-schema.org/draft-07/schema\",\n    \"$id\": \"http://example.com/example.json\",\n    \"type\": \"object\",\n    \"required\": [\n        \"payload\",\n        \"guid\",\n        \"creationDate\",\n        \"messageTypeName\",\n        \"version\",\n        \"owner\",\n        \"stream\",\n        \"sourceSystem\"\n    ],\n    \"properties\": {\n        \"payload\": {\n            \"$id\": \"#/properties/payload\",\n            \"type\": \"object\",\n            \"required\": [\n                \"BuzQuxId\",\n                \"enabled\",\n                \"warehouseCode\",\n                \"mode\",\n                \"itemThreshold\",\n                \"staleLocationTime\",\n                \"stagingLocations\",\n                \"allowWork\",\n                \"profiles\"\n            ],\n            \"properties\": {\n                \"BuzQuxId\": {\n                    \"$id\": \"#/properties/payload/properties/BuzQuxId\",\n                    \"type\": \"string\"\n                },\n                \"invoicePrinterId\": {\n                    \"$id\": \"#/properties/payload/properties/invoicePrinterId\",\n                    \"type\": \"string\"\n                },\n                \"enabled\": {\n                    \"$id\": \"#/properties/payload/properties/enabled\",\n                    \"type\": \"boolean\"\n                },\n                \"warehouseCode\": {\n                    \"$id\": \"#/properties/payload/properties/warehouseCode\",\n                    \"type\": \"string\"\n                },\n                \"mode\": {\n                    \"$id\": \"#/properties/payload/properties/mode\",\n                    \"type\": \"string\",\n                    \"enum\": [\"Manual\", \"Guided\"]\n                },\n                \"itemThreshold\": {\n                    \"$id\": \"#/properties/payload/properties/itemThreshold\",\n                    \"type\": \"integer\"\n                },\n                \"staleLocationTime\": {\n                    \"$id\": \"#/properties/payload/properties/staleLocationTime\",\n                    \"type\": \"integer\"\n                },\n                \"allowWork\": {\n                    \"$id\": \"#/properties/payload/properties/allowWork\",\n                    \"type\": \"boolean\"\n                },\n                \"stagingLocations\": {\n                    \"$id\": \"#/properties/payload/properties/stagingLocations\",\n                    \"type\": \"array\",\n                    \"additionalItems\": true,\n                    \"items\": {\n                        \"$id\": \"#/properties/payload/properties/stagingLocations/items\",\n                        \"anyOf\": [\n                            {\n                                \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0\",\n                                \"type\": \"object\",\n                                \"required\": [\n                                    \"id\",\n                                    \"displayName\",\n                                    \"selectionPriority\",\n                                    \"xGridPosition\",\n                                    \"yGridPosition\",\n                                    \"heavyItems\",\n                                    \"locationType\",\n                                    \"enabled\"\n                                ],\n                                \"properties\": {\n                                    \"id\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/id\",\n                                        \"type\": \"string\"\n                                    },\n                                    \"displayName\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/displayName\",\n                                        \"type\": \"string\"\n                                    },\n                                    \"selectionPriority\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/selectionPriority\",\n                                        \"type\": \"integer\"\n                                    },\n                                    \"xGridPosition\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/xGridPosition\",\n                                        \"type\": \"integer\"\n                                    },\n                                    \"yGridPosition\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/yGridPosition\",\n                                        \"type\": \"integer\"\n                                    },\n                                    \"heavyItems\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/heavyItems\",\n                                        \"type\": \"boolean\"\n                                    },\n                                    \"locationType\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/locationType\",\n                                        \"type\": \"string\",\n                                        \"enum\": [\"AutoSingles\", \"AutoMults\", \"Manual\", \"AutoException\"]\n                                    },\n                                    \"itemThreshold\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/itemThreshold\",\n                                        \"type\": \"integer\"\n                                    },\n                                    \"enabled\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/enabled\",\n                                        \"type\": \"boolean\"\n                                    }\n                                },\n                                \"additionalProperties\": true\n                            }\n                        ]\n                    }\n                },\n                \"profiles\": {\n                    \"$id\": \"#/properties/payload/properties/profiles\",\n                    \"type\": \"array\",\n                    \"additionalItems\": true,\n                    \"items\": {\n                        \"$id\": \"#/properties/payload/properties/profiles/items\",\n                        \"anyOf\": [\n                            {\n                                \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0\",\n                                \"type\": \"object\",\n                                \"required\": [\n                                    \"name\",\n                                    \"suitability\"\n                                ],\n                                \"properties\": {\n                                    \"name\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/name\",\n                                        \"type\": \"string\"\n                                    },\n                                    \"suitability\": {\n                                        \"$id\": \"#/properties/payload/properties/stagingLocations/items/anyOf/0/properties/suitability\",\n                                        \"type\": \"integer\"\n                                    }\n                                },\n                                \"additionalProperties\": true\n                            }\n                        ]\n                    }\n                }\n            },\n            \"additionalProperties\": true\n        },\n        \"guid\": {\n            \"$id\": \"#/properties/guid\",\n            \"type\": \"string\"\n        },\n        \"creationDate\": {\n            \"$id\": \"#/properties/creationDate\",\n            \"type\": \"string\"\n        },\n        \"messageTypeName\": {\n            \"$id\": \"#/properties/messageTypeName\",\n            \"type\": \"string\"\n        },\n        \"version\": {\n            \"$id\": \"#/properties/version\",\n            \"type\": \"integer\"\n        },\n        \"number\": {\n            \"$id\": \"#/properties/number\",\n            \"type\": \"integer\"\n        },\n        \"numberOf\": {\n            \"$id\": \"#/properties/numberOf\",\n            \"type\": \"integer\"\n        },\n        \"owner\": {\n            \"$id\": \"#/properties/owner\",\n            \"type\": \"string\"\n        },\n        \"stream\": {\n            \"$id\": \"#/properties/stream\",\n            \"type\": \"string\"\n        },\n        \"sourceSystem\": {\n            \"$id\": \"#/properties/sourceSystem\",\n            \"type\": \"string\"\n        }\n    },\n    \"additionalProperties\": true\n}\n",
+    "endToken": {
+      "type": "",
+      "literal": "",
+      "annotationLiteral": "",
+      "line": 0,
+      "column": 0,
+      "source": {
+        "file": "",
+        "path": ""
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "id=Bar category=message type=example",
+      "line": 6,
+      "column": 46,
+      "source": {
+        "file": "someexample.cs",
+        "path": "src/test/foo.sample/src/someexample.cs"
+      }
+    },
+    "annotation": {
+      "category": "message",
+      "type": "example",
+      "name": "Bar",
+      "id": "Bar",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "Bar",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 4,
+    "value": "public class Bar () {\n}",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 9,
+      "column": 16,
+      "source": {
+        "file": "someexample.cs",
+        "path": "src/test/foo.sample/src/someexample.cs"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "id=BuxQuz category=message type=example",
+      "line": 13,
+      "column": 59,
+      "source": {
+        "file": "someeventpoco.cs",
+        "path": "src/test/foo.sample/src/someeventpoco.cs"
+      }
+    },
+    "annotation": {
+      "category": "message",
+      "type": "example",
+      "name": "BuxQuz",
+      "id": "BuxQuz",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "BuxQuz",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 4,
+    "value": "namespace foo.Packing.Services.BuzQux.Contracts.Events;\n\npublic class BuxQuz : FooMessage<BuxQuzPayload>\n{\n    public BuxQuz(BuxQuzPayload payload)\n    {\n        MessageTypeName = nameof(BuxQuz);\n        SourceSystem = BuzQuxServiceConstants.Name;\n        Guid = Guid.NewGuid();\n        CreationDate = DateTime.UtcNow;\n        Number = 1;\n        NumberOf = 1;\n        Owner = string.Empty;\n        Stream = String.Empty;\n        Payload = payload;\n    }\n}",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 31,
+      "column": 16,
+      "source": {
+        "file": "someeventpoco.cs",
+        "path": "src/test/foo.sample/src/someeventpoco.cs"
+      }
+    }
+  },
+  {
+    "beginToken": {
+      "type": "BEGIN_DOC_GEN",
+      "literal": "//+gendoc",
+      "annotationLiteral": "id=EventDefinedInOtherSrc category=message type=description",
+      "line": 13,
+      "column": 59,
+      "source": {
+        "file": "someeventpoco.cs",
+        "path": "src/test/foo.sample/src/someeventpoco.cs"
+      }
+    },
+    "annotation": {
+      "category": "message",
+      "type": "description",
+      "name": "EventDefinedInOtherSrc",
+      "id": "EventDefinedInOtherSrc",
+      "serviceId": "",
+      "channelId": "",
+      "parent": "PubOpInInfra",
+      "isPub": false,
+      "isSub": false,
+      "subscribers": null,
+      "producers": null
+    },
+    "docCategory": 4,
+    "value": "namespace foo.Packing.Services.BuzQux.Contracts.Events;\n\npublic class BuxQuz : FooMessage<BuxQuzPayload>\n{\n    public BuxQuz(BuxQuzPayload payload)\n    {\n        MessageTypeName = nameof(BuxQuz);\n        SourceSystem = BuzQuxServiceConstants.Name;\n        Guid = Guid.NewGuid();\n        CreationDate = DateTime.UtcNow;\n        Number = 1;\n        NumberOf = 1;\n        Owner = string.Empty;\n        Stream = String.Empty;\n        Payload = payload;\n    }\n}",
+    "endToken": {
+      "type": "END_DOC_GEN",
+      "literal": "//-gendoc",
+      "annotationLiteral": "",
+      "line": 31,
+      "column": 16,
+      "source": {
+        "file": "someeventpoco.cs",
+        "path": "src/test/foo.sample/src/someeventpoco.cs"
+      }
+    }
+  }
+]

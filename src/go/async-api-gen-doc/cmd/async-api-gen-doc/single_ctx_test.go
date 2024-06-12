@@ -12,7 +12,7 @@ import (
 )
 
 func Test_single_repo_Analyis_runs_ok(t *testing.T) {
-	baseDir := "test/bazquxsample"
+	baseDir := "test/foo.sample"
 
 	searchParentDir := fmt.Sprintf("local://%s", fshelper.DebugDirHelper(t, baseDir, "cmd/async-api-gen-doc", "../../"))
 

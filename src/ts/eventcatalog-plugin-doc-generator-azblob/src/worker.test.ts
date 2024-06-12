@@ -57,7 +57,7 @@ describe("worker", () => {
       test("succeeds with sample inputs", async () => {
         // Arrange
         let err = null 
-        const generatedPaths = ["urn:domain:s2s:service1.yml","urn:domain:s2s:service2.yml"].map((p) => path.join(cwd(), "src", "__mocks__","sample", p))
+        const generatedPaths = ["urn:domain:bar:service1.yml","urn:domain:bar:service2.yml"].map((p) => path.join(cwd(), "src", "__mocks__","sample", p))
         const baseOutDir = path.join(cwd(),".ignore")
         const writer = process.stdout, outputDir = baseOutDir
 
@@ -85,7 +85,7 @@ describe("worker", () => {
       test("errors on AsyncAPI plugin", async () => {
         // Arrange
         let err = null 
-        const generatedPaths = ["urn:domain:s2s:service1.yml","urn:domain:s2s:service2.yml"].map((p) => path.join(cwd(), "src", "__mocks__","sample", p))
+        const generatedPaths = ["urn:domain:bar:service1.yml","urn:domain:bar:service2.yml"].map((p) => path.join(cwd(), "src", "__mocks__","sample", p))
         const baseOutDir = path.join(cwd(),".ignore")
         const writer = process.stdout, outputDir = baseOutDir
         jest.spyOn(mockAsyncApiPlugin, "default").mockRejectedValueOnce(new Error("async api conversion error"))
