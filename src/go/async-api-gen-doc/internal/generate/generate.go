@@ -143,7 +143,7 @@ func (g *Generate) GenDocBlox() error {
 
 	genCh := make(chan parserChan)
 
-	wg := &sync.WaitGroup{}
+	wg := sync.WaitGroup{}
 
 	// Implement some rate limiting in form semaphores
 	// in case the source directory file count exceeds 50 files
@@ -213,7 +213,7 @@ func (g *Generate) GenDocBlox() error {
 			// read from semaphore
 			<-sem
 			genCh <- parserChan{generated: parsed}
-		}(input, wg, idx, semaphoreChannel)
+		}(input, &wg, idx, semaphoreChannel)
 	}
 
 	// execute a non blocking waitGroup.Wait

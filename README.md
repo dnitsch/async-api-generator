@@ -17,8 +17,6 @@ _Limitations by design:_
 _High level flow_
 ![hl-flow diagram](./docs/hl-flow.png)
 
-Living documentation [link](https://lucid.app/lucidspark/4d09749b-ad86-456b-a5ad-2f9e70a2b546/edit?viewport_loc=-1181%2C-734%2C4250%2C2266%2C0_0&invitationId=inv_bc6af9c8-3b41-4b00-b535-255d109f0afb)
-
 ## Flow Overview
 
 Walk the directory and create a list of all source files - excluding specified such as bin, dist, vendor, node_modules, etc...

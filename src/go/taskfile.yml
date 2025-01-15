@@ -31,8 +31,8 @@ tasks:
     cmd: |
       set -exo pipefail
       go test ./... -timeout 30s -v -mod=readonly -race -coverprofile=.coverage/out > .coverage/test.out
+      cat .coverage/test.out
   
-
   install:
     desc: Install dependencies
     internal: true

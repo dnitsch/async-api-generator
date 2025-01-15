@@ -41,7 +41,7 @@ var nodeCatConverter = map[string]NodeCategory{
 	"message":      MessageNode,
 }
 
-// Tree structure
+// GenDocTree structure includes an Index and the root node
 type GenDocTree struct {
 	Root  *GenDocNode
 	Index map[string]*GenDocNode
