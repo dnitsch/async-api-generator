@@ -144,7 +144,7 @@
       "producers": null
     },
     "docCategory": 2,
-    "value": "      topic : azurerm_servicebus_topic.ItemSortation-waypointCancelled-topic,\n      name : \"foo-supply-subscription\"\n     ",
+    "value": "      topic : azurerm_servicebus_topic.SomeFoo-stateCancelled-topic,\n      name : \"foo-supply-subscription\"\n     ",
     "endToken": {
       "type": "END_DOC_GEN",
       "literal": "//-gendoc",
