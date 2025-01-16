@@ -21,13 +21,13 @@ locals {
 This channel is used to convey subscriptions
 //-gendoc
 */
-      topic : azurerm_servicebus_topic.ItemSortation-waypointComplete-topic,
+      topic : azurerm_servicebus_topic.SomeFoo-state-topic,
       //+gendoc category=channel id=foo-stuff-subscription type=nameId service_id=[foo.bar.app]
       //-gendoc
       name : "foo-stuff-subscription"
     },
     {
-      topic : azurerm_servicebus_topic.ItemSortation-operationWaypointStarted-topic,
+      topic : azurerm_servicebus_topic.SomeFoo-stateStarted-topic-topic,
       name : "foo-stuff-subscription"
     },
    

@@ -2,7 +2,7 @@
 
 [AsyncAPI standard spec](https://www.asyncapi.com/docs/reference/specification/v2.6.0#asyncapi-specification) describes all the possible elements that a valid asyncAPI document can have. 
 
-For the purposes of the existing setup and needs at Next Plc (Warehouse systems) we don't necessarily need all of them to be included in our bindings (either as annotation keys or model bindings to structs). 
+Currently not all bindings are supported.
 
 ## Required
 
@@ -34,14 +34,14 @@ See [notes](./notes.md) for the relationship diagram and precedence hierarchy
 - `type`: Example
 
 ```cs
-//+gendoc id=PackingAreaEvent category=message type=example
+//+gendoc id=SomeEvent category=message type=example
 namespace domain.Packing.Services.PackArea.Contracts.Events;
 
-public class PackingAreaEvent : domainMessage<PackingAreaEventPayload>
+public class SomeEvent : domainMessage<SomeEventPayload>
 {
-    public PackingAreaEvent(PackingAreaEventPayload payload)
+    public SomeEvent(SomeEventPayload payload)
     {
-        MessageTypeName = nameof(PackingAreaEvent);
+        MessageTypeName = nameof(SomeEvent);
         SourceSystem = PackAreaServiceConstants.Name;
         Guid = Guid.NewGuid();
         CreationDate = DateTime.UtcNow;
@@ -68,7 +68,7 @@ public class Bar
 }
 
 /* below is an example of schema in code
-//+gendoc id=PackingAreaEvent category=message type=json_schema
+//+gendoc id=SomeEvent category=message type=json_schema
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "http://example.com/example.json",
@@ -100,11 +100,11 @@ public class Bar
 
 ```
 
-> However, the recommended way is to keep your schema in a file named => `MESSAGE_NAME.schema.json` [see example](../src/test/domain.sample/src/schemas/PackingAreaEvent.schema.json)
+> However, the recommended way is to keep your schema in a file named => `MESSAGE_NAME.schema.json` [see example](../src/test/domain.sample/src/schemas/SomeEvent.schema.json)
 
 
 ## Nice To Have
 
-- `servers` keyword describes the technology providing the transport layer - e.g. Kafka/RabbitMQ or specifically in case of Next the `ServiceBus Namespace`
+- `servers` keyword describes the technology providing the transport layer - e.g. Kafka/RabbitMQ/AWS SQS/Azure ServiceBus
     - it may contain a map of multiple implementations - e.g. dev/preprod/prod 
     - > in conjunction with a channel key a full URL can be constructed to use by the client(s) to either publish or subscribe to messages on that ServiceBus's Topic/Queue/Topic-Subscription
