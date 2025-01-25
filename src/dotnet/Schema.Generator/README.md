@@ -4,7 +4,7 @@ Project to allow for schema generation from a "published" DLL.
 
 The SchemaGenerator is a dotnet tool to inspect a built DLL (Assembly) and extract all the exported types, optionally supplying a namespace filter.
 
-This generator uses [this project](https://github.com/RicoSuter/NJsonSchema) under the hood and furthermore use the System.Text.Json package by default - currently unable to override this. 
+This generator uses [this project](https://github.com/RicoSuter/NJsonSchema) under the hood and furthermore use the System.Text.Json package by default - currently unable to override this.
 
 For details about System.Text.Json see [this part](https://github.com/RicoSuter/NJsonSchema/wiki/JsonSchemaGenerator#systemtextjson-vs-newtonsoftjson) of the documentation.
 
@@ -53,9 +53,8 @@ First publish the `domain.foo.Models` project:
 
 Once done we can then generate the output.
 
-`schemagenerator -p /your/git/path/to/domain.foo/src/domain.foo.Models/bin/Release/net6.0/publish/domain.foo.Models.dll -f domain.foo.Models.WarehouseEvents.Version1 -d`
+`schemagenerator -p /your/git/path/to/domain.foo/src/domain.foo.Models/bin/Release/net6.0/publish/domain.foo.Models.dll -f domain.foo.Models.Events.Version1 -d`
 
 By default the output is generated in the current directory creating a folder `.autogened` which will include both the samples and schemas.
 
 > NOTE: Samples are using the null type on a complex object type as opposed the typed object.
-
