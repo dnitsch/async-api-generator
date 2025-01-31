@@ -29,16 +29,6 @@ make NETCORE_TARGET_ARCH=win-x64|osx-x64|osx-arm64 build_schemagen
 ./dist/[osx-x64|win-x64]/schemagenerator --help
 ```
 
-### Download
-
-Follow instructions for:
-
-- [Windows]()
-
-- [Intel Mac]()
-
-- [ARM Mac]()
-
 ### Example
 
 `schemagenerator -p path/to/publish/Dll.dll -f Filter.This.Namespace.Only -d -o output/dir`
